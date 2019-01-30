@@ -1,7 +1,7 @@
 "# laravel-with-ElasticSearch--course--sofnet" 
 
  - Run the Project
-run bach elasticsearch (atalho desktop)
+run .batch elasticsearch ( desktop shortcut)
 
 for confirm if it is run, 
 curl http://localhost:9200/ (or in the browser)
