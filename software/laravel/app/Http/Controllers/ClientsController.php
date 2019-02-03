@@ -13,7 +13,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        //
+        return view('clients.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
@@ -56,7 +56,15 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*try {
+            $this->elasticParams['id'] = $id;
+            $client = $this->client->get($this->elasticParams);
+        } catch (Missing404Exception $e) {
+            throw new NotFoundHttpException("Client not found");
+        }*/
+        //return view('clients.edit', compact('client'));
+        return view('clients.edit');
+
     }
 
     /**

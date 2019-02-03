@@ -18,3 +18,19 @@ Route::get('/', function () {
 Route::resource('clients', 'ClientsController');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+/*Route::get('/clients', function () {
+    return view('clients');
+});*/
+
+Route::get('/clients', 'ClientsController@index');
+
+Route::get('/clients.create', 'ClientsController@create');
+
+Route::get('/clients.edit', 'ClientsController@edit');
+
+Route::get('/clients.destroy', 'ClientsController@destroy');
