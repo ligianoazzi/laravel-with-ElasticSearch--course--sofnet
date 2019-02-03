@@ -20,10 +20,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        /** @var Client *client */
         $client = app(Client::class);
-        $index = ['index' => ('EX_INDEX')];
-        if(!$client->indices()->exists($index))
+        $index = ['index' => ('ES_INDEX')];
+        if(!$client->indices()->exists($index)){
             $client->indices()->exists($index);
+        }
     }
 
     /**

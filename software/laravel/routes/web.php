@@ -27,7 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     return view('clients');
 });*/
 
-Route::get('/clients', 'ClientsController@index');
+Route::get('/clients.index', 'ClientsController@index');
 
 Route::get('/clients.create', 'ClientsController@create');
 

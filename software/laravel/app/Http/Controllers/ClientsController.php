@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Elasticsearch\Client;
+
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
 {
+
+    protected $elasticParams = [];
+
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        $this->elasticParams['index'] = env('ES_INDEX');
+        $this->elasticParams['type'] = 'clients';                
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +27,9 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        return view('clients.index');
+
+        $clients = $this->client->search($this->elasticParams);
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -56,14 +72,13 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        /*try {
+        try {
             $this->elasticParams['id'] = $id;
             $client = $this->client->get($this->elasticParams);
         } catch (Missing404Exception $e) {
             throw new NotFoundHttpException("Client not found");
-        }*/
-        //return view('clients.edit', compact('client'));
-        return view('clients.edit');
+        }
+        return view('clients.edit', compact('client'));       
 
     }
 
