@@ -96,7 +96,18 @@ class ClientsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->elasticParams['id'] = $id;
+        if(!this->client->exists($this->elasticParams)){
+            throw new NotFoundHttpException("Client not found");            
+        }
+
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        $this->elasticParams['refresh'] = true;
+        $this->elasticParams['body']['doc'] = $data;
+        $this->client->update($this->elasticParams);
+        return redirect()->route('clients.index');
     }
 
     /**
