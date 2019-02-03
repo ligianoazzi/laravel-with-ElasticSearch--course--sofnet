@@ -118,6 +118,13 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->elasticParams['id'] = $id;
+        if(!this->client->exists($this->elasticParams)){
+            throw new NotFoundHttpException("Client not found");            
+        }
+
+        $this->elasticParams['refresh'] = true;
+
+        $this->client->delete($this->elasticParams);
     }
 }
