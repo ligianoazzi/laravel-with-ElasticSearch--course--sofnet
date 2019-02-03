@@ -50,7 +50,12 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        $this->elasticParams['body'] = $data;
+        $this->elasticParams['refresh'] = true;
+        $this->client->create($this->elasticParams);
+        return redirect()->route('client.index');
     }
 
     /**
