@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -16,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $client = app(Client::class);
+        $index = ['index' => ('EX_INDEX')];
+        if(!$client->indices()->exists($index))
+            $client->indices()->exists($index);
     }
 
     /**
@@ -25,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(Client::class, function(){
+            return  ClientBuilder::create()->build();
+        });
     }
 }
